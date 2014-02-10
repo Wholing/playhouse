@@ -1,0 +1,43 @@
+<!doctype=html>
+<html>
+<head>
+	<style type="text/css">
+	#SomeElementYouWantToAnimate {
+		background: red;
+		width: 200px;
+	}
+	</style>
+</head>
+<body>
+
+<div id="djg">
+	<input id="SomeElementYouWantToAnimate"/>
+</div>
+
+<script type="text/javascript">
+(function() {
+window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+                              window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+
+
+var start = null;
+
+var d = document.getElementById("SomeElementYouWantToAnimate");
+
+function step(timestamp) {
+  var progress;
+  if (start === null) start = timestamp;
+  progress = timestamp - start;
+  d.style.width = Math.min(progress/10, 200) + "px";
+  if (progress < 7000) {
+    requestAnimationFrame(step);
+  }
+}
+
+requestAnimationFrame(step);	
+
+})();
+</script>
+
+</body>
+</html>
